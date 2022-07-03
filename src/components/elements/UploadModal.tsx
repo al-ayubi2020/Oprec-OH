@@ -38,7 +38,7 @@ const UploadModal: React.FC<UploadModalProps> = ({
       const { data } = await axios
         .post(`https://oh-oprec-be.rorre.xyz/api/post/`, formData, {
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_URL}`,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
           },
         })
         .then(res => {
