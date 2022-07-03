@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import React from 'react'
 import { SnackbarProvider } from 'notistack'
+import Navbar from '../components/elements/Navbar'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -19,7 +20,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       }}
       preventDuplicate={true}
     >
-      <Component {...pageProps} />
+      <Navbar>
+        <Component {...pageProps} />
+      </Navbar>
     </SnackbarProvider>
   )
 }
