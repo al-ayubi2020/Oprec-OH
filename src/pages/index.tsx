@@ -1,9 +1,10 @@
 import type { NextPage } from 'next'
 import React from 'react'
+import Navbar from '../components/elements/Navbar'
 
 const Home: NextPage = () => (
   <div>
-    <p>hello</p>
+    <Navbar />
   </div>
 )
 
