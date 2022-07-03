@@ -23,7 +23,7 @@ const UploadModal: React.FC<UploadModalProps> = ({
   const { enqueueSnackbar } = useSnackbar()
   const [loading, setLoading] = useState(false)
 
-  const { register, handleSubmit } = useForm<FormData>()
+  const { register, handleSubmit, reset } = useForm<FormData>()
   const onSubmit = handleSubmit(data => handlePost(data))
 
   const handlePost = async (datapost: any) => {
@@ -34,13 +34,15 @@ const UploadModal: React.FC<UploadModalProps> = ({
       formData.append('image', datapost.image[0])
       formData.append('category', datapost.category)
       console.log('data', formData)
+      reset({ title: '', image: '', category: '' })
       const { data } = await axios
         .post(`https://oh-oprec-be.rorre.xyz/api/post/`, formData, {
           headers: {
-            Authorization: `Bearer 8890430f-990a-43da-af7b-71aa0dbfc4b5`,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_URL}`,
           },
         })
         .then(res => {
+          setIsModalOpen(false)
           console.log(res)
           enqueueSnackbar('Berhasil Upload!', {
             variant: 'success',
@@ -118,29 +120,33 @@ const UploadModal: React.FC<UploadModalProps> = ({
                     <option value="photography">Photography</option>
                     <option value="furry">Furry</option>
                   </select>
-                  <div className="flex items-center justify-end">
-                    {/* <button
-                      onClick={() => {
-                        enqueueSnackbar('Berhasil register, silahkan login!', {
-                          variant: 'success',
-                        })
-                        setLoading(!loading)
-                      }}
-                      type="button"
-                      disabled={loading}
-                      className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-                    >
-                      {loading ? (
+                  <div className="flex items-center justify-end gap-5">
+                    {!loading && (
+                      <button
+                        onClick={() =>
+                          reset({ title: '', image: '', category: '' })
+                        }
+                        type="button"
+                        className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                      >
+                        Reset
+                      </button>
+                    )}
+                    {loading ? (
+                      <button
+                        type="button"
+                        disabled={loading}
+                        className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                      >
                         <TailSpin color="#fca5a5" height={20} width={20} />
-                      ) : (
-                        'Upload'
-                      )}
-                    </button> */}
-                    <input
-                      type="submit"
-                      value="Upload"
-                      className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-                    />
+                      </button>
+                    ) : (
+                      <input
+                        type="submit"
+                        value="Upload"
+                        className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                      />
+                    )}
                   </div>
                 </form>
               </Dialog.Panel>
