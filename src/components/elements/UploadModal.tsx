@@ -52,6 +52,9 @@ const UploadModal: React.FC<UploadModalProps> = ({
       return data
     } catch (error) {
       console.log('err', error)
+      enqueueSnackbar('Terjadi kesalahan', {
+        variant: 'error',
+      })
       setLoading(false)
     }
   }
