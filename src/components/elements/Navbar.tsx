@@ -38,12 +38,12 @@ const Navbar = () => {
       </div>
       <Transition appear show={isSearchOpen} as={Fragment}>
         <Transition.Child
-          enter="transition ease-in-out duration-300 transform"
-          enterFrom="-translate-x-full"
-          enterTo="translate-x-0"
-          leave="transition ease-in-out duration-300 transform"
-          leaveFrom="translate-x-0"
-          leaveTo="-translate-x-full"
+          enter="duration-300 transition-opacity"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="duration-300  transition-opacity"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
         >
           <div className="md:h-20 w-screen bg-red-300 md:flex items-center px-10 gap-5 py-5 md:py-0 grid grid-cols-1">
             <div className="md:flex gap-5 w-full grid grid-cols-1">
