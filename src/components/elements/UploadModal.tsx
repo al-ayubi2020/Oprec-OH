@@ -3,6 +3,7 @@ import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import React, { Fragment, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSnackbar } from 'notistack'
+import { TailSpin } from 'react-loader-spinner'
 
 interface UploadModalProps {
   isModalOpen: any
@@ -24,6 +25,7 @@ const UploadModal: React.FC<UploadModalProps> = ({
   const [selected, setSelected] = useState(people[0])
   const { register, handleSubmit } = useForm()
   const { enqueueSnackbar } = useSnackbar()
+  const [loading, setLoading] = useState(false)
 
   return (
     <Transition appear show={isModalOpen} as={Fragment}>
@@ -129,15 +131,21 @@ const UploadModal: React.FC<UploadModalProps> = ({
                 </Listbox>
                 <div className="flex items-center justify-end">
                   <button
-                    onClick={() =>
+                    onClick={() => {
                       enqueueSnackbar('Berhasil register, silahkan login!', {
                         variant: 'success',
                       })
-                    }
+                      setLoading(!loading)
+                    }}
                     type="button"
+                    disabled={loading}
                     className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                   >
-                    Upload
+                    {loading ? (
+                      <TailSpin color="#fca5a5" height={20} width={20} />
+                    ) : (
+                      'Upload'
+                    )}
                   </button>
                 </div>
               </Dialog.Panel>
