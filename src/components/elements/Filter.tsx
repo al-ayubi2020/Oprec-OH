@@ -1,5 +1,6 @@
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
+import { Router, useRouter } from 'next/router'
 import React, { Fragment, useState } from 'react'
 import { useNavbarContext } from './NavbarContext'
 
@@ -18,11 +19,25 @@ const Filter: React.FC<FilterProps> = ({ isSearchOpen }) => {
   ]
   const [selected, setSelected] = useState(people[0])
   const [title, setTitle] = useState('')
-  const [date, setDate] = useState()
+  const [date, setDate] = useState('')
 
-  const { arrayFilter, setIsSearch, setArrayFiltered } = useNavbarContext()
+  const router = useRouter()
+
+  const {
+    arrayFilter,
+    setIsSearch,
+    setArrayFiltered,
+    arrayFiltered,
+    setArrayFilter,
+  } = useNavbarContext()
 
   const handleFilter = () => {
+    setArrayFilter(
+      arrayFilter.map(
+        (item: any) =>
+          (item.uploaded_at = new Date(item.uploaded_at).toDateString())
+      )
+    )
     setArrayFiltered(
       arrayFilter.filter(
         (item: any) =>
@@ -33,14 +48,16 @@ const Filter: React.FC<FilterProps> = ({ isSearchOpen }) => {
               selected.name.toLowerCase() == 'category'
                 ? ''
                 : selected.name.toLowerCase()
-            )
+            ) &&
+          item.uploaded_at.match(date)
       )
     )
+
     setIsSearch(true)
-    console.log(arrayFilter)
   }
 
   console.log(date)
+  console.log(arrayFiltered)
 
   return (
     <Transition appear show={isSearchOpen} as={Fragment}>
@@ -119,14 +136,22 @@ const Filter: React.FC<FilterProps> = ({ isSearchOpen }) => {
               </Listbox>
             </div>
             <input
-              onChange={e => setDate(e.target.value)}
+              onChange={e =>
+                setDate(
+                  !e.target.value ? '' : new Date(e.target.value).toDateString()
+                )
+              }
               className="md:w-3/12 w-full h-10 cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
               id="inline-date"
               type="date"
             />
           </div>
           <button
-            onClick={handleFilter}
+            onClick={() => {
+              !date && !title && selected.name.toLowerCase() == 'category'
+                ? router.reload()
+                : handleFilter()
+            }}
             className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
           >
             Search
