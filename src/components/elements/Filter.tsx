@@ -28,7 +28,7 @@ const Filter: React.FC<FilterProps> = ({ array, isSearchOpen }) => {
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <div className="md:h-20 w-screen bg-red-300 md:flex items-center px-10 gap-5 py-5 md:py-0 grid grid-cols-1">
+        <div className="md:h-20 bg-red-300 md:flex items-center px-10 gap-5 py-5 md:py-0 grid grid-cols-1">
           <div className="md:flex gap-5 w-full grid grid-cols-1">
             <input
               className="w-full md:w-6/12 h-10 cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"

@@ -35,7 +35,7 @@ const UploadModal: React.FC<UploadModalProps> = ({
       formData.append('category', datapost.category)
       console.log('data', formData)
       reset({ title: '', image: '', category: '' })
-      const { data } = await axios
+      const data = await axios
         .post(`https://oh-oprec-be.rorre.xyz/api/post/`, formData, {
           headers: {
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
@@ -55,11 +55,10 @@ const UploadModal: React.FC<UploadModalProps> = ({
       enqueueSnackbar('Terjadi kesalahan', {
         variant: 'error',
       })
+      reset({ title: '', image: '', category: '' })
       setLoading(false)
     }
   }
-
-  console.log(process.env.NEXT_PUBLIC_TOKEN)
 
   return (
     <Transition appear show={isModalOpen} as={Fragment}>

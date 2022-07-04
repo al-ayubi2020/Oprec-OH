@@ -11,8 +11,8 @@ const Navbar = ({ children }: NavbarProps) => {
   const [isSearchOpen, setisSearchOpen] = useState(false)
 
   return (
-    <div className="sticky top-0">
-      <div className="h-20 w-screen bg-red-300 flex justify-between items-center px-5 md:px-10 z-10">
+    <div className="relative">
+      <div className="sticky top-0 z-50 h-20 bg-red-300 flex justify-between items-center px-5 md:px-10">
         <p className="text-xl md:text-4xl font-bold">OPREC OH</p>
         <div className="space-x-3">
           <button
@@ -31,7 +31,9 @@ const Navbar = ({ children }: NavbarProps) => {
           </button>
         </div>
       </div>
-      <Filter array={''} isSearchOpen={isSearchOpen} />
+      <div className="sticky top-20 z-50">
+        <Filter array={''} isSearchOpen={isSearchOpen} />
+      </div>
       <UploadModal isModalOpen={isModalOpen} setIsModalOpen={setisModalOpen} />
       <div>{children}</div>
     </div>
