@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useSnackbar } from 'notistack'
 import { TailSpin } from 'react-loader-spinner'
 import axios from 'axios'
+import Router from 'next/router'
 
 interface UploadModalProps {
   isModalOpen: any
@@ -47,6 +48,7 @@ const UploadModal: React.FC<UploadModalProps> = ({
           })
         })
       setLoading(false)
+      Router.push('/')
       return data
     } catch (error) {
       enqueueSnackbar('Terjadi kesalahan', {
@@ -54,6 +56,7 @@ const UploadModal: React.FC<UploadModalProps> = ({
       })
       reset({ title: '', image: '', category: '' })
       setLoading(false)
+      Router.push('/')
     }
   }
 

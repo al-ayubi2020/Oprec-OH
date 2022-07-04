@@ -56,7 +56,7 @@ const Page: NextPage = () => {
   return (
     <div>
       <div className=" min-h-screen p-20">
-        <div className=" w-full lg:columns-3 md:columns-2 columns-1 space-y-5">
+        <div className=" w-full lg:columns-3 md:columns-2 columns-1 space-y-5 mb-5">
           {usePost.map(post => (
             <PictureCard
               id={post?.id}
