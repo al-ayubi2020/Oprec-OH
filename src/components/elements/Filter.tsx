@@ -1,6 +1,6 @@
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import React, { Fragment, useState } from 'react'
 import { useNavbarContext } from './NavbarContext'
 
@@ -23,13 +23,8 @@ const Filter: React.FC<FilterProps> = ({ isSearchOpen }) => {
 
   const router = useRouter()
 
-  const {
-    arrayFilter,
-    setIsSearch,
-    setArrayFiltered,
-    arrayFiltered,
-    setArrayFilter,
-  } = useNavbarContext()
+  const { arrayFilter, setIsSearch, setArrayFiltered, setArrayFilter } =
+    useNavbarContext()
 
   const handleFilter = () => {
     setArrayFilter(
