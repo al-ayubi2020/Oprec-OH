@@ -17,8 +17,30 @@ const Filter: React.FC<FilterProps> = ({ isSearchOpen }) => {
     { id: 6, name: 'furry', unavailable: false },
   ]
   const [selected, setSelected] = useState(people[0])
+  const [title, setTitle] = useState('')
+  const [date, setDate] = useState()
 
-  const { arrayFilter } = useNavbarContext()
+  const { arrayFilter, setIsSearch, setArrayFiltered } = useNavbarContext()
+
+  const handleFilter = () => {
+    setArrayFiltered(
+      arrayFilter.filter(
+        (item: any) =>
+          item.title.toLowerCase().match(title.toLowerCase()) &&
+          item.category
+            .toLowerCase()
+            .match(
+              selected.name.toLowerCase() == 'category'
+                ? ''
+                : selected.name.toLowerCase()
+            )
+      )
+    )
+    setIsSearch(true)
+    console.log(arrayFilter)
+  }
+
+  console.log(date)
 
   return (
     <Transition appear show={isSearchOpen} as={Fragment}>
@@ -37,6 +59,7 @@ const Filter: React.FC<FilterProps> = ({ isSearchOpen }) => {
               id="inline-full-name"
               type="text"
               placeholder="title"
+              onChange={e => setTitle(e.target.value)}
             />
             <div className="w-full md:w-3/12">
               <Listbox value={selected} onChange={setSelected}>
@@ -96,13 +119,14 @@ const Filter: React.FC<FilterProps> = ({ isSearchOpen }) => {
               </Listbox>
             </div>
             <input
+              onChange={e => setDate(e.target.value)}
               className="md:w-3/12 w-full h-10 cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
               id="inline-date"
               type="date"
             />
           </div>
           <button
-            type="button"
+            onClick={handleFilter}
             className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
           >
             Search

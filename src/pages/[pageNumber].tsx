@@ -12,7 +12,8 @@ const Page: NextPage = () => {
   const [count, setCount] = useState(0)
   const { enqueueSnackbar } = useSnackbar()
   const router = useRouter()
-  const { arrayFilter, setArrayFilter, isSearch } = useNavbarContext()
+  const { setArrayFilter, isSearch, arrayFiltered, setIsSearch } =
+    useNavbarContext()
 
   useEffect(() => {
     axios
@@ -28,6 +29,7 @@ const Page: NextPage = () => {
           variant: 'success',
         })
       })
+    setIsSearch(false)
   }, [])
 
   const { pageNumber } = router.query
@@ -51,13 +53,14 @@ const Page: NextPage = () => {
 
   setArrayFilter(posts)
 
-  const usePost = isSearch ? arrayFilter : newPost
+  const usePost = isSearch ? arrayFiltered : newPost
 
+  console.log(isSearch)
   return (
     <div>
       <div className=" min-h-screen p-20">
         <div className=" w-full lg:columns-3 md:columns-2 columns-1 space-y-5 mb-5">
-          {usePost.map(post => (
+          {usePost.map((post: any) => (
             <PictureCard
               id={post?.id}
               key={post?.id}
@@ -66,7 +69,9 @@ const Page: NextPage = () => {
             />
           ))}
         </div>
-        <Pagination intPageNumber={intPageNumber} paginations={paginations} />
+        {!isSearch && (
+          <Pagination intPageNumber={intPageNumber} paginations={paginations} />
+        )}
       </div>
     </div>
   )

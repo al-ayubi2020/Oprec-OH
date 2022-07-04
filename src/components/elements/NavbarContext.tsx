@@ -3,6 +3,8 @@ import React, { createContext, ReactNode, useContext, useState } from 'react'
 export interface NavbarContextValue {
   arrayFilter: any
   setArrayFilter: any
+  arrayFiltered: any
+  setArrayFiltered: any
   isSearch: any
   setIsSearch: any
 }
@@ -19,6 +21,7 @@ export const NavbarContextProvider: React.FC<NavbarContextProviderProps> = ({
   children,
 }) => {
   const [arrayFilter, setArrayFilter] = useState([])
+  const [arrayFiltered, setArrayFiltered] = useState([])
   const [isSearch, setIsSearch] = useState(false)
 
   const navbarContextValue = {
@@ -26,6 +29,8 @@ export const NavbarContextProvider: React.FC<NavbarContextProviderProps> = ({
     setArrayFilter,
     isSearch,
     setIsSearch,
+    arrayFiltered,
+    setArrayFiltered,
   }
 
   return (
