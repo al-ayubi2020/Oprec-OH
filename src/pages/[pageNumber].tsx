@@ -55,7 +55,6 @@ const Page: NextPage = () => {
 
   const usePost = isSearch ? arrayFiltered : newPost
 
-  console.log(isSearch)
   return (
     <div>
       <div className=" min-h-screen p-20">

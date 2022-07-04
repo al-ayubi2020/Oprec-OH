@@ -24,7 +24,12 @@ const UploadModal: React.FC<UploadModalProps> = ({
   const { enqueueSnackbar } = useSnackbar()
   const [loading, setLoading] = useState(false)
 
-  const { register, handleSubmit, reset } = useForm<FormData>()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>()
   const onSubmit = handleSubmit(data => handlePost(data))
 
   const handlePost = async (datapost: any) => {
@@ -100,19 +105,22 @@ const UploadModal: React.FC<UploadModalProps> = ({
                 <form className="space-y-5" onSubmit={onSubmit}>
                   <input
                     type="file"
-                    {...register('image')}
+                    {...register('image', { required: true })}
                     className="w-full h-10 cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
                     id="inline-date"
+                    accept="image/png, image/jpg, image/jpeg"
                   />
+                  {errors.image && 'image is required'}
                   <input
-                    {...register('title')}
+                    {...register('title', { required: true, maxLength: 64 })}
                     className="w-full h-10 cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
                     id="inline-date"
                     type="text"
                     placeholder="title"
                   />
+                  {errors.title && 'title is required'}
                   <select
-                    {...register('category')}
+                    {...register('category', { required: true })}
                     className="w-full h-10 cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
                   >
                     <option value="">Select Category...</option>
@@ -122,6 +130,7 @@ const UploadModal: React.FC<UploadModalProps> = ({
                     <option value="photography">Photography</option>
                     <option value="furry">Furry</option>
                   </select>
+                  {errors.category && 'category is required'}
                   <div className="flex items-center justify-end gap-5">
                     {!loading && (
                       <button

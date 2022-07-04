@@ -56,9 +56,6 @@ const Filter: React.FC<FilterProps> = ({ isSearchOpen }) => {
     setIsSearch(true)
   }
 
-  console.log(date)
-  console.log(arrayFiltered)
-
   return (
     <Transition appear show={isSearchOpen} as={Fragment}>
       <Transition.Child

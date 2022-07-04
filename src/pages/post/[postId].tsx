@@ -55,7 +55,6 @@ const Post = () => {
   const handleEdit = async (datapost: any) => {
     try {
       setLoading(true)
-      console.log(datapost)
       const data = await axios
         .patch(`https://oh-oprec-be.rorre.xyz/api/post/${postId}`, datapost, {
           headers: {
@@ -75,7 +74,6 @@ const Post = () => {
       enqueueSnackbar('Terjadi kesalahan', {
         variant: 'error',
       })
-      console.log(error)
       reset({ title: '', category: '' })
       setLoading(false)
       router.reload()
@@ -84,7 +82,6 @@ const Post = () => {
 
   const onSubmit = handleSubmit(data => handleEdit(data))
 
-  console.log(data)
   return (
     <div>
       {data && (
