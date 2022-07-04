@@ -33,7 +33,6 @@ const UploadModal: React.FC<UploadModalProps> = ({
       formData.append('title', datapost.title)
       formData.append('image', datapost.image[0])
       formData.append('category', datapost.category)
-      console.log('data', formData)
       reset({ title: '', image: '', category: '' })
       const data = await axios
         .post(`https://oh-oprec-be.rorre.xyz/api/post/`, formData, {
@@ -43,7 +42,6 @@ const UploadModal: React.FC<UploadModalProps> = ({
         })
         .then(res => {
           setIsModalOpen(false)
-          console.log(res)
           enqueueSnackbar('Berhasil Upload!', {
             variant: 'success',
           })
@@ -51,7 +49,6 @@ const UploadModal: React.FC<UploadModalProps> = ({
       setLoading(false)
       return data
     } catch (error) {
-      console.log('err', error)
       enqueueSnackbar('Terjadi kesalahan', {
         variant: 'error',
       })

@@ -20,8 +20,6 @@ const Filter: React.FC<FilterProps> = ({ isSearchOpen }) => {
 
   const { arrayFilter } = useNavbarContext()
 
-  console.log(arrayFilter)
-
   return (
     <Transition appear show={isSearchOpen} as={Fragment}>
       <Transition.Child

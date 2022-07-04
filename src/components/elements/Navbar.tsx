@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from 'react'
 import UploadModal from './UploadModal'
 import Filter from './Filter'
+import Link from 'next/link'
 
 interface NavbarProps {
   children: ReactNode
@@ -13,7 +14,11 @@ const Navbar = ({ children }: NavbarProps) => {
   return (
     <div className="relative">
       <div className="sticky top-0 z-50 h-20 bg-red-300 flex justify-between items-center px-5 md:px-10">
-        <p className="text-xl md:text-4xl font-bold">OPREC OH</p>
+        <Link href="/" className="cursor-pointer">
+          <p className="text-xl md:text-4xl font-bold cursor-pointer">
+            OPREC OH
+          </p>
+        </Link>
         <div className="space-x-3">
           <button
             type="button"
