@@ -103,6 +103,7 @@ const Post = () => {
                   id="inline-date"
                   type="text"
                   placeholder="title"
+                  defaultValue={data.title}
                 />
               </div>
             ) : (
@@ -112,6 +113,7 @@ const Post = () => {
               <div className="w-full px-5">
                 <select
                   {...register('category')}
+                  defaultValue={data.category}
                   className="w-full h-10 cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
                 >
                   <option value="">Select Category...</option>

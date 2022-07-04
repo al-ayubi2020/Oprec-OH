@@ -10,7 +10,7 @@ export interface PictureCardProps {
 const PictureCard: React.FC<PictureCardProps> = ({ id, title, imageSrc }) => {
   return (
     <Link href={`/post/${id}`}>
-      <div className="w-fit h-fit shadow-md break-inside-avoid rounded-b-2xl cursor-pointer">
+      <div className="w-fit h-fit shadow-2xl break-inside-avoid rounded-b-2xl cursor-pointer">
         <div className="h-fit relative">
           <img src={imageSrc} alt={title} className="rounded-t-2xl" />
           <div className="bg-[#3E405B] w-full rounded-b-2xl p-[24px]">
