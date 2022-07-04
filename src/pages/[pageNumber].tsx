@@ -35,14 +35,25 @@ const Page: NextPage = () => {
 
   const paginations = []
   for (let i = 1; i <= totalPage; i++) {
-    paginations.push({ number: i })
+    paginations.push({
+      number: i,
+      start: i == 1 ? 0 : (i - 1) * 10,
+      end: i == 1 ? 9 : i * 10 - 1,
+    })
   }
+
+  const newPost = posts.slice(
+    intPageNumber == 1 ? 0 : (intPageNumber - 1) * 10,
+    intPageNumber == 1 ? 9 : intPageNumber * 10 - 1
+  )
+
+  console.log(newPost)
 
   return (
     <div>
       <div className=" min-h-screen p-20">
         <div className=" w-full lg:columns-3 md:columns-2 columns-1 space-y-5">
-          {posts.map(post => (
+          {newPost.map(post => (
             <PictureCard
               id={post?.id}
               key={post?.id}
