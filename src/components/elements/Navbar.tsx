@@ -32,7 +32,7 @@ const Navbar = ({ children }: NavbarProps) => {
         </div>
       </div>
       <div className="sticky top-20 z-50">
-        <Filter array={''} isSearchOpen={isSearchOpen} />
+        <Filter isSearchOpen={isSearchOpen} />
       </div>
       <UploadModal isModalOpen={isModalOpen} setIsModalOpen={setisModalOpen} />
       <div>{children}</div>

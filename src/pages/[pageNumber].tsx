@@ -5,12 +5,14 @@ import React, { useEffect, useState } from 'react'
 import PictureCard from '../components/elements/PictureCard'
 import { useRouter } from 'next/router'
 import Pagination from '../components/elements/Pagination'
+import { useNavbarContext } from '../components/elements/NavbarContext'
 
 const Page: NextPage = () => {
   const [posts, setPosts] = useState([])
   const [count, setCount] = useState(0)
   const { enqueueSnackbar } = useSnackbar()
   const router = useRouter()
+  const { arrayFilter, setArrayFilter, isSearch } = useNavbarContext()
 
   useEffect(() => {
     axios
@@ -47,13 +49,15 @@ const Page: NextPage = () => {
     intPageNumber == 1 ? 9 : intPageNumber * 10 - 1
   )
 
-  console.log(newPost)
+  setArrayFilter(posts)
+
+  const usePost = isSearch ? arrayFilter : newPost
 
   return (
     <div>
       <div className=" min-h-screen p-20">
         <div className=" w-full lg:columns-3 md:columns-2 columns-1 space-y-5">
-          {newPost.map(post => (
+          {usePost.map(post => (
             <PictureCard
               id={post?.id}
               key={post?.id}

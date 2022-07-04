@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import React from 'react'
 import { SnackbarProvider } from 'notistack'
 import Navbar from '../components/elements/Navbar'
+import { NavbarContextProvider } from '../components/elements/NavbarContext'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -20,9 +21,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       }}
       preventDuplicate={true}
     >
-      <Navbar>
-        <Component {...pageProps} />
-      </Navbar>
+      <NavbarContextProvider>
+        <Navbar>
+          <Component {...pageProps} />
+        </Navbar>
+      </NavbarContextProvider>
     </SnackbarProvider>
   )
 }

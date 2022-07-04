@@ -1,13 +1,13 @@
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import React, { Fragment, useState } from 'react'
+import { useNavbarContext } from './NavbarContext'
 
 interface FilterProps {
-  array: any
   isSearchOpen: any
 }
 
-const Filter: React.FC<FilterProps> = ({ array, isSearchOpen }) => {
+const Filter: React.FC<FilterProps> = ({ isSearchOpen }) => {
   const people = [
     { id: 1, name: 'Category', unavailable: false },
     { id: 2, name: 'artwork', unavailable: false },
@@ -17,6 +17,10 @@ const Filter: React.FC<FilterProps> = ({ array, isSearchOpen }) => {
     { id: 6, name: 'furry', unavailable: false },
   ]
   const [selected, setSelected] = useState(people[0])
+
+  const { arrayFilter } = useNavbarContext()
+
+  console.log(arrayFilter)
 
   return (
     <Transition appear show={isSearchOpen} as={Fragment}>
