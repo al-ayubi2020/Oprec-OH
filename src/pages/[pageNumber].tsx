@@ -30,6 +30,7 @@ const Page: NextPage = () => {
         })
       })
     setIsSearch(false)
+    console.log(posts)
   }, [])
 
   const { pageNumber } = router.query

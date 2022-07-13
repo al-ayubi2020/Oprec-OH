@@ -13,6 +13,8 @@ type FormData = {
 const Post = () => {
   const router = useRouter()
   const { postId } = router.query
+  console.log(router.query['postId'])
+
   const { enqueueSnackbar } = useSnackbar()
 
   const [isEdit, setIsEdit] = useState(false)
@@ -22,18 +24,20 @@ const Post = () => {
   const { register, handleSubmit, reset } = useForm<FormData>()
 
   useEffect(() => {
-    axios
-      .get(`https://oh-oprec-be.rorre.xyz/api/post/${postId}`, {
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
-      })
-      .then(res => {
-        setData(res.data)
-        enqueueSnackbar('Berhasil mengambil data!', {
-          variant: 'success',
+    if (postId) {
+      axios
+        .get(`https://oh-oprec-be.rorre.xyz/api/post/${postId}`, {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+          },
         })
-      })
+        .then(res => {
+          setData(res.data)
+          enqueueSnackbar('Berhasil mengambil data!', {
+            variant: 'success',
+          })
+        })
+    }
   }, [postId])
 
   const handleDelete = () => {
